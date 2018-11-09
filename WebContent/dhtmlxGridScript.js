@@ -46,11 +46,10 @@ function onCalculate() {
 	for (var i = 0; i < myGrid.getRowsNum(); i++) {
 		items[i] = [];
 		for (var j = 1; j < myGrid.getColumnsNum() - 3; j++) {
-			items[i][j] = myGrid.cellByIndex(i, j).getValue();
+			items[i][j-1] = myGrid.cellByIndex(i, j).getValue();
 		}
 	}
 	
-	//var array=[1,2,3,4];
 	var obj = {
 			'json':items
 	}
