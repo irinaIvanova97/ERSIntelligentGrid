@@ -11,33 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class GridServlet
- */
 @WebServlet("/GridServlet")
 public class GridServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String body;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public GridServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		// RequestDispatcher rd = request.getRequestDispatcher("dhtmlxGrid.html");
-		// rd.forward(request, response);
-		
 
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader bufferedReader = null;
@@ -71,11 +56,7 @@ public class GridServlet extends HttpServlet {
 		body = stringBuilder.toString();
 		System.out.println(body);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
