@@ -68,6 +68,7 @@ public class GridServlet extends HttpServlet {
 			JSONObject obj = new JSONObject(body);
 			arr = obj.getJSONArray("json");
 			List<List<String>> list = new ArrayList<List<String>>();
+			
 			for (int i = 0; i < arr.length(); i++) {
 				List<String> innerList = new ArrayList<>();
 				for (int j = 0; j < arr.getJSONArray(i).length(); j++) {
@@ -75,9 +76,11 @@ public class GridServlet extends HttpServlet {
 				}
 				list.add(innerList);
 			}
+			
 			list.forEach(element -> {
 				element.forEach(inner -> System.out.println(inner));
 			});
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
