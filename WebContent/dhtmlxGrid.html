@@ -5,53 +5,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="stylesheet" type="text/css"
-    href="lib/codebase/fonts/font_roboto/roboto.css" />
+	href="lib/codebase/fonts/font_roboto/roboto.css" />
 <link rel="stylesheet" type="text/css" href="lib/codebase/dhtmlx.css" />
 <script src="lib/codebase/dhtmlx.js"></script>
 <script src="lib/jquery-3.3.1.min.js"></script>
 
-<style>
-.even {
-    background-color: #E6E6FA;
-}
-
-.uneven {
-    background-color: #F0F8FF;
-}
-
-.button {
-    background-color: #0099cc;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s; 
-    transition-duration: 0.4s;
-}
-
-.button2:hover {
-   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-</style>
-
 <script type="text/javascript" src="dhtmlxGridScript.js"></script>
+
+<link rel="stylesheet" type="text/css" href="GridStyle.css">
 
 </head>
 <body onload="doOnLoad();">
-    <h1>Intelligent Grid</h1>
 
-    <div id="gridbox" style="width: 750px; height: 350px; overflow: hidden"></div>
-    
-    <br> <button class="button button2" onclick="onAddRow()">Add row</button>
-    
-    <button class="button button2" onclick="onDeleteRow()">Remove Selected Row</button>
-    
-    <span style="margin-left: 16em"><button class="button button2" onclick="onCalculate()">Calculate</button></span>
-    
+	<h1 class="headerStyle">Intelligent Grid</h1>
+
+	<div class="form-style-6">
+
+		<label for="formula1"><span>Formula for Result1:</span> <input
+			type="text" name="formula1" id="formula1" placeholder="Input Formula" /></label>
+
+		<label for="formula2"><span>Formula for Result2:</span> <input
+			type="text" name="formula2" id="formula2" placeholder="Input Formula" /></label>
+
+		<label for="formula3"><span>Formula for Result3:</span> <input
+			type="text" name="formula3" id="formula3" placeholder="Input Formula" /></label>
+
+	</div>
+
+	<div align="right" id="gridbox"
+		style="width: 750px; height: 350px; overflow: hidden"></div>
+
+	<br>
+	<button class="button button2" onclick="onAddRow()">Add row</button>
+
+	<button class="button button2" onclick="onDeleteRow()">Remove
+		Selected Row</button>
+
+	<span style="margin-left: 16em"><button class="button button2"
+			onclick="onCalculate()">Calculate</button></span>
+
 </body>
 </html>

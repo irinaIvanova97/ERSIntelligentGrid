@@ -1,10 +1,10 @@
 data = {
 	rows : [ {
 		id : 1,
-		data : [ 1, "Text", "1111", "2222.22", "50", "", "", "" ]
+		data : [ 1, "Text", "1", "2", "50", "", "", "" ]
 	}, {
 		id : 2,
-		data : [ 2, "Text", "3333.33", "4444.44", "10", "", "", "" ]
+		data : [ 2, "Text", "3", "3", "50", "", "", "" ]
 	}, {
 		id : 3,
 		data : [ 3, "Text", "5555.55", "6666.66", "20", "", "", "" ]
@@ -19,7 +19,6 @@ dhtmlxValidation.isMax10 = function(data) {// data should include less than 10
 var myGrid;
 function doOnLoad() {
 	myGrid = new dhtmlXGridObject('gridbox');
-	myGrid.setImagePath("lib/codebase/imgs/");
 	myGrid.setHeader("Column number, Data1, Data2, Data3,Data4, Result1, Result2, Result3");
 	myGrid.setInitWidths("70,*,*,*,*,*,*,*");
 	myGrid.setColAlign("left,left,left,left,left,left,left,left");
@@ -39,14 +38,14 @@ function doOnLoad() {
 	myGrid.setColValidators("Min4,Max10"); 
 
 	myGrid.parse(data, "json");
+	
 }
 
 var rowID = 3;
 
 function onAddRow() {
 	rowID = rowID + 1;
-	myGrid.addRow(rowID, [ rowID, '', '', '', '', '', '' ], myGrid
-			.getRowIndex(myGrid.getSelectedId()))
+	myGrid.addRow(rowID, [ rowID, '', '', '', '', '', '' ], -1)
 }
 
 function onDeleteRow() {
@@ -73,6 +72,7 @@ function validate(i, j){
 
 		return false;
 		break;
+		
 	case (j==2 || j==3):
 		
 		if ((cellValue.match(numbers)) && valueLength < 14)
@@ -99,6 +99,15 @@ function validate(i, j){
 	}
 }
 
+function onSuccess(data){
+	for (var i=0;i<myGrid.getRowsNum();i++){
+		var resultInner = data.result[i];
+		for(var j=5;j<myGrid.getColumnsNum();j++){
+			myGrid.cellByIndex(i, j).setValue(resultInner[j-5]);
+		}
+	}
+}
+
 function onCalculate() {
 	var items = [];
 
@@ -109,7 +118,7 @@ function onCalculate() {
 			var cellValue = myGrid.cellByIndex(i, j).getValue();
 			
 			if (cellValue == "" ) {
-				alert("Incorrect or empty value!");
+				alert("Empty value!");
 				myGrid.selectCell(i, j);
 				myGrid.editCell();
 				return;
@@ -123,15 +132,29 @@ function onCalculate() {
 		}
 
 	}
-
-	var obj = {
-		'json' : items
+	
+	var formula1 = document.getElementById('formula1').value;
+	var formula2 = document.getElementById('formula2').value;
+	var formula3 = document.getElementById('formula3').value;
+	
+	if(formula1 == "" && formula2 == "" && formula3 == ""){
+		alert ("Please input at least 1 formula.");
+		return;
 	}
+	
+	var obj = {
+		'json' : items, formula1, formula2, formula3
+	}
+	
 	var json = JSON.stringify(obj);
 	$.ajax({
 		url : "/IntelligentGrid/grid",
 		type : "POST",
 		dataType : 'json',
-		data : json
+		data : json,
+		success: onSuccess,
+	    error: function(data) {
+	    	alert("Something went wrong!");
+	    }
 	});
 }
