@@ -1,13 +1,13 @@
 data = {
 	rows : [ {
 		id : 1,
-		data : [ 1, "Text", "1", "2", "50", "", "", "" ]
+		data : [ 1, "Text", "10", "2", "50", "", "", "" ]
 	}, {
 		id : 2,
-		data : [ 2, "Text", "3", "3", "50", "", "", "" ]
+		data : [ 2, "Text", "4", "3", "35", "", "", "" ]
 	}, {
 		id : 3,
-		data : [ 3, "Text", "5555.55", "6666.66", "20", "", "", "" ]
+		data : [ 3, "Text", "55.55", "66.66", "20", "", "", "" ]
 	} ]
 };
 
@@ -32,7 +32,8 @@ function doOnLoad() {
 	myGrid.enableAlterCss("even", "uneven");
 	myGrid.enableMultiselect(true);
 	myGrid.setColumnColor("#CCE2FE");
-
+	myGrid.enableAutoHeight(true, 350);
+	
 	myGrid.enableValidation(true);
 	
 	myGrid.setColValidators("Min4,Max10"); 
@@ -53,7 +54,8 @@ function onDeleteRow() {
 }
 
 function validate(i, j){
-	var numbers = /^[0-9.]+$/;
+	//var numbers = /^[0-9.]+$/; // only for positive
+	var numbers  = /^-?\d*\.?\d+$/; // positive and negative numbers
 	var text = /^[a-zA-Z]+$/;
 	
 	var cellValue = myGrid.cellByIndex(i, j).getValue();
@@ -142,6 +144,12 @@ function onCalculate() {
 		return;
 	}
 	
+	if(!formula1.includes("Data2") && !formula1.includes("Data3") && !formula1.includes("Data4")){
+		alert ("Incorect formula");
+		document.getElementById('formula1').value ="";
+		return;
+	}
+	
 	var obj = {
 		'json' : items, formula1, formula2, formula3
 	}
@@ -157,4 +165,7 @@ function onCalculate() {
 	    	alert("Something went wrong!");
 	    }
 	});
+}
+
+function onConfig(){
 }

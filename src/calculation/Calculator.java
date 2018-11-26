@@ -36,7 +36,7 @@ public class Calculator {
 
 	private String replaceFormulaWithValues(String formula, List<String> inner) {
 		formula = formula.replace("Data2", inner.get(Data2));
-		formula = formula.replace("Data3", Double.toString(Double.parseDouble(inner.get(Data3))));
+		formula = formula.replace("Data3", inner.get(Data3));
 		formula = formula.replace("Data4", Double.toString((Double.parseDouble(inner.get(Data4)) / 100)));
 
 		return formula;
@@ -44,8 +44,8 @@ public class Calculator {
 
 	public List<List<String>> calculateResult() throws ScriptException {
 		Number result1 = 0.0;
-		double result2 = 0.0;
-		double result3 = 0.0;
+		Number result2 = 0.0;
+		Number result3 = 0.0;
 
 		for (int i = 0; i < dataList.size(); i++) {
 			List<String> inner = dataList.get(i);
@@ -56,20 +56,19 @@ public class Calculator {
 			if (!formula1.equals("")) {
 				String newFormula1 = formula1;
 				newFormula1 = replaceFormulaWithValues(newFormula1, inner);
-				//String s = (String) engine.eval(newFormula1);
 				result1 = (Number) engine.eval(newFormula1);
 			}
 			
 			if (!formula2.equals("")) {
 				String newFormula2 = formula2;
 				newFormula2 = replaceFormulaWithValues(newFormula2, inner);
-				result2 = (Double) engine.eval(newFormula2);
+				result2 = (Number) engine.eval(newFormula2);
 			}
 
 			if (!formula3.equals("")) {
 				String newFormula3 = formula3;
 				newFormula3 = replaceFormulaWithValues(newFormula3, inner);
-				result3 = (Double) engine.eval(newFormula3);
+				result3 = (Number) engine.eval(newFormula3);
 			}
 
 			List<String> resultInner = new ArrayList<String>();
@@ -81,9 +80,9 @@ public class Calculator {
 
 			if ((Double)result1 != 0.0)
 				resultInner.add(df.format(result1));
-			if (result2 != 0.0)
+			if ((Double)result2 != 0.0)
 			resultInner.add(df.format(result2));
-			if (result3 != 0.0)
+			if ((Double)result3 != 0.0)
 			resultInner.add(df.format(result3));
 
 			resultList.add(resultInner);
